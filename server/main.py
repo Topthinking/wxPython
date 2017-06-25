@@ -20,6 +20,8 @@ class ServerController(object):
         
         #获取朋友列表
         self._get_friend()
+        
+        self.bot.join()
     
     def _get_friend(self):
         friends = self.bot.friends()
@@ -52,13 +54,13 @@ class ServerController(object):
         self.friend_manager.saveFriends(friendInfo)
     
     def start(self):
-        print("【"+self.bot.self.raw["NickName"]+"】登录成功")
+        #print("【"+self.bot.self.raw["NickName"]+"】登录成功")
         listen(self.bot,self.friends)
     
     def replay(self):
         @self.bot.register(self.friends)
         def reply_my_friend(msg):
-            print(msg.text)
+            #print(msg.text)
             if msg.text == "yyf":
                 self.douyuLive.clearAttention()
                 liveData = self.douyuLive.attention(["58428"])
