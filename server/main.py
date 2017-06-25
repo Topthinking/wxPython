@@ -21,7 +21,6 @@ class ServerController(object):
         #获取朋友列表
         self._get_friend()
         
-        self.bot.join()
     
     def _get_friend(self):
         friends = self.bot.friends()
@@ -54,8 +53,11 @@ class ServerController(object):
         self.friend_manager.saveFriends(friendInfo)
     
     def start(self):
-        #print("【"+self.bot.self.raw["NickName"]+"】登录成功")
+        print("【"+self.bot.self.raw["NickName"]+"】登录成功")
         listen(self.bot,self.friends)
+        
+    def Bjoin(self):
+        self.bot.join()
     
     def replay(self):
         @self.bot.register(self.friends)
