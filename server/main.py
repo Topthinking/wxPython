@@ -76,20 +76,25 @@ class ServerController(object):
             #查询数据库
             lists = self.douyuLiveDb.searchLiveState(msg.text)
             
-            if len(lists) == 0:
-                return "目前仅支持斗鱼主播八师傅和鱼鱼风的查询情况，回复8或者yyf即可"
+            result = ''
             
             for list in lists:
                 if list["name"] == msg.text:
                     self.douyuLive.clearAttention()
                     liveData = self.douyuLive.attention([list["roomId"]])
                     if len(liveData) ==0 :
-                        return "未开播"
+                        result =  "未开播"
                 
                     #获取已开播的消息
                     liveData = self.douyuLive.crawAttention([list["roomId"]])
-                
-                    return self.replayInfo(liveData)   
+                    
+                    result =  self.replayInfo(liveData) 
+            
+            if result == '':
+                return "目前仅支持斗鱼主播八师傅和鱼鱼风的查询情况，回复8或者yyf即可"
+            else:
+                return result
+                  
             
                 
         @self.bot.register(msg_types="Friends")
