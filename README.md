@@ -25,7 +25,7 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4
 
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
-### 扫描二维码，验证信息输入'top'
+### 扫描二维码(机器人暂时离线)，验证信息输入'top'
 ![](https://github.com/Topthinking/wxPython/blob/master/doc/top.jpg)
 
     目前可以回复
