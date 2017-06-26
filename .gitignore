@@ -5,3 +5,4 @@ friend.txt
 .settings/*
 .project
 .pydevproject
+*/__pycache__
