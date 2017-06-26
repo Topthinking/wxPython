@@ -24,3 +24,11 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4
 >  如果觉得不错的话，您可以点右上角 "Star" 支持一下 谢谢！ ^_^
 
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
+
+### 扫描二维码，验证信息输入'top'
+![](https://github.com/Topthinking/wxPython/blob/master/doc/top.jpg)
+
+    目前可以回复
+    8
+    yyf
+    这里是获取斗鱼直播情况
