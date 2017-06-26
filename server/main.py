@@ -4,9 +4,8 @@ from wxpy.api.bot import Bot
 from wxpy.api.messages.message import Message
 
 from common import function
-from douyu import main
+from douyu import main,liveDb
 from server import friends
-
 
 class ServerController(object):
     
@@ -22,8 +21,11 @@ class ServerController(object):
         
         #获取朋友列表
         self._get_friend()
-        
-    
+            
+    #数据库    
+    def setDBconf(self,conf):
+        self.conf = conf
+             
     def _get_friend(self):
         friends = self.bot.friends()
 
@@ -69,30 +71,26 @@ class ServerController(object):
             
         @self.bot.register(self.friends)
         def reply_my_friend(msg):
-            if msg.text == "yyf":
-                self.douyuLive.clearAttention()
-                liveData = self.douyuLive.attention(["58428"])
-                if len(liveData) ==0 :
-                    return "未开播"
-                
-                #获取已开播的消息
-                liveData = self.douyuLive.crawAttention(["58428"])
-                
-                return self.replayInfo(liveData)
+            #连接数据库
+            self.douyuLiveDb = liveDb.LiveDb(self.conf)
+            #查询数据库
+            lists = self.douyuLiveDb.searchLiveState(msg.text)
             
+            if len(lists) == 0:
+                return "目前仅支持斗鱼主播八师傅和鱼鱼风的查询情况，回复8或者yyf即可"
             
-            if msg.text == "8":
-                self.douyuLive.clearAttention()
-                liveData = self.douyuLive.attention(["64609"])
-                if len(liveData) ==0 :
-                    return "未开播"
+            for list in lists:
+                if list["name"] == msg.text:
+                    self.douyuLive.clearAttention()
+                    liveData = self.douyuLive.attention([list["roomId"]])
+                    if len(liveData) ==0 :
+                        return "未开播"
                 
-                #获取已开播的消息
-                liveData = self.douyuLive.crawAttention(["64609"])
+                    #获取已开播的消息
+                    liveData = self.douyuLive.crawAttention([list["roomId"]])
                 
-                return self.replayInfo(liveData)
+                    return self.replayInfo(liveData)   
             
-            return "目前仅支持斗鱼主播八师傅和鱼鱼风的查询情况，回复8或者yyf即可"
                 
         @self.bot.register(msg_types="Friends")
         def auto_accept_friends(msg):
