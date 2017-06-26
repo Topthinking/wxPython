@@ -1,10 +1,12 @@
 #coding:utf-8
 from wechat_sender.listener import listen
 from wxpy.api.bot import Bot
-from common import function
-from server import friends
 from wxpy.api.messages.message import Message
+
+from common import function
 from douyu import main
+from server import friends
+
 
 class ServerController(object):
     
@@ -57,12 +59,16 @@ class ServerController(object):
         listen(self.bot,self.friends)
         
     def Bjoin(self):
+        print("【"+self.bot.self.raw["NickName"]+"】登录成功")
         self.bot.join()
     
     def replay(self):
+        @self.bot.register()
+        def print_others(msg):
+            print(msg)
+            
         @self.bot.register(self.friends)
         def reply_my_friend(msg):
-            #print(msg.text)
             if msg.text == "yyf":
                 self.douyuLive.clearAttention()
                 liveData = self.douyuLive.attention(["58428"])
@@ -86,7 +92,14 @@ class ServerController(object):
                 
                 return self.replayInfo(liveData)
                 
-    
+        @self.bot.register(msg_types="Friends")
+        def auto_accept_friends(msg):
+            if msg.text == "top":
+                new_friend = msg.card.accept()
+                #更新朋友列表
+                self._get_friend()                
+                new_friend.send('您好，已经接受好友请求了')
+            
     def replayInfo(self,liveData):
         info = ''
         for live in liveData:
@@ -96,4 +109,7 @@ class ServerController(object):
                     "\n人气值："+live['roomNum']+\
                     "\n访问：https://www.douyu.com/"+live['roomId']+"/"
     
-        return info               
+        return info 
+                  
+        
+            
