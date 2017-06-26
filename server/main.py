@@ -91,6 +91,8 @@ class ServerController(object):
                 liveData = self.douyuLive.crawAttention(["64609"])
                 
                 return self.replayInfo(liveData)
+            
+            return "目前仅支持斗鱼主播八师傅和鱼鱼风的查询情况，回复8或者yyf即可"
                 
         @self.bot.register(msg_types="Friends")
         def auto_accept_friends(msg):
