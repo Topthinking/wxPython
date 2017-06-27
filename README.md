@@ -33,6 +33,8 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4 +pymysql
 ### 扫描二维码，验证信息输入'top'
 ![](https://github.com/Topthinking/wxPython/blob/master/doc/top.jpg)
 
-    目前可以回复
-    斗鱼DOTA2区的大主播相关的名称
-    这里是获取斗鱼直播情况
+# 效果截图
+<img src="https://github.com/Topthinking/wxPython/blob/master/doc/show.png" width="365" height="619"/> 
+
+# 词汇截图
+<img src="https://github.com/Topthinking/wxPython/blob/master/doc/word.png" width="365" height="619"/>
