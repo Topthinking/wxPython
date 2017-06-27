@@ -34,6 +34,5 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4 +pymysql
 ![](https://github.com/Topthinking/wxPython/blob/master/doc/top.jpg)
 
     目前可以回复
-    8
-    yyf
+    斗鱼DOTA2区的大主播相关的名称
     这里是获取斗鱼直播情况
