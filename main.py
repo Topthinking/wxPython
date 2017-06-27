@@ -8,6 +8,7 @@ if __name__ == '__main__':
         "user":"root",
         "passwd":"root",
         "db":"test",
+        "charset":"utf8",
         "cursorclass":pymysql.cursors.DictCursor
     }
     wx_server = ServerController(True)

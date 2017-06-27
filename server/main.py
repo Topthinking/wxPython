@@ -1,11 +1,10 @@
 #coding:utf-8
 from wechat_sender.listener import listen
+from wechat_sender.sender import Sender
 from wxpy.api.bot import Bot
-from wxpy.api.messages.message import Message
 
 from common import function
-from douyu import main,liveDb
-from server import friends
+from server import friends,douyuServer
 
 class ServerController(object):
     
@@ -15,7 +14,7 @@ class ServerController(object):
         self.bot.enable_puid("wxpy_puid.pkl")
         self.friend_manager = friends.FriendManager()
         self.common = function.CommonFn()
-        self.douyuLive = main.SpilerLiveMain()
+
         #存储所有朋友
         self.friends = []
         
@@ -71,31 +70,14 @@ class ServerController(object):
             
         @self.bot.register(self.friends)
         def reply_my_friend(msg):
-            #连接数据库
-            self.douyuLiveDb = liveDb.LiveDb(self.conf)
-            #查询数据库
-            lists = self.douyuLiveDb.searchLiveState(msg.text)
+
+            msg.chat.send('已接收数据，正在请求中...')
             
-            result = ''
+            #连接斗鱼数据查询
+            douyuSer =  douyuServer.DouyuServer(self.conf,msg)
             
-            for list in lists:
-                if list["name"] == msg.text:
-                    self.douyuLive.clearAttention()
-                    liveData = self.douyuLive.attention([list["roomId"]])
-                    if len(liveData) ==0 :
-                        result =  "未开播"
-                
-                    #获取已开播的消息
-                    liveData = self.douyuLive.crawAttention([list["roomId"]])
-                    
-                    result =  self.replayInfo(liveData) 
-            
-            if result == '':
-                return "目前仅支持斗鱼主播八师傅和鱼鱼风的查询情况，回复8或者yyf即可"
-            else:
-                return result
-                  
-            
+            #根据roomID号爬取斗鱼直播情况
+            return douyuSer.liveDataByRoomId()
                 
         @self.bot.register(msg_types="Friends")
         def auto_accept_friends(msg):
@@ -105,16 +87,6 @@ class ServerController(object):
                 self._get_friend()                
                 new_friend.send('您好，已经接受好友请求了')
             
-    def replayInfo(self,liveData):
-        info = ''
-        for live in liveData:
-            info = "房间名称:【"+live['roomName']+"】已开播"\
-                    "\n房间号："+live['roomId']+\
-                    "\n主播昵称："+live['nickName']+\
-                    "\n人气值："+live['roomNum']+\
-                    "\n访问：https://www.douyu.com/"+live['roomId']+"/"
-    
-        return info 
                   
         
             

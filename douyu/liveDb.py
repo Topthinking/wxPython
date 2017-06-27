@@ -8,6 +8,6 @@ class LiveDb(object):
         self.db = DBmain.DBModel(conf)
     
     def searchLiveState(self,text):
-        sql = "SELECT * FROM user"
-        return self.db.exeMySQL(sql)
+        sql = " SELECT * FROM user WHERE alias LIKE '%"+text+"%' "
+        return self.db.exeAllMySQL(sql)
 

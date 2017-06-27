@@ -67,6 +67,12 @@ class HtmlParser(object):
     def jsonParse(self,content):
         
         roomInfo = json.loads(content["$ROOM"])
+        
+        roomshowData = json.loads(content["$ROOM.showData"])
+        
+        print(roomshowData["child_cate"]["url"])
+        
+        return
              
         #已开播
         if roomInfo["show_status"] == 1:
@@ -76,6 +82,21 @@ class HtmlParser(object):
                 "nickName":roomInfo['owner_name'],
                 "roomNum":roomInfo['levelInfo']['upgrade_exp']
             })
+    
+    def liveDataByRoomIdParse(self,content):
+        
+        roomInfo = json.loads(content["$ROOM"])
+        
+        roomshowData = json.loads(content["$ROOM.showData"])
+        
+        return {
+            "roomId":str(roomInfo['room_id']),
+            "roomName":roomInfo['room_name'],
+            "nickName":roomInfo['owner_name'],
+            "show_status":roomInfo["show_status"],
+            "search_url":roomshowData["child_cate"]["url"]
+        }
+        
         
         
     
