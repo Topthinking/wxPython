@@ -72,8 +72,6 @@ class ServerController(object):
         def reply_my_friend(msg):
             if msg.text == "top":
                 return "访问     https://github.com/Topthinking/wxPython 查看更多"
-                
-            msg.chat.send('已接收数据，正在请求中...')
             
             #连接斗鱼数据查询
             douyuSer =  douyuServer.DouyuServer(self.conf,msg)

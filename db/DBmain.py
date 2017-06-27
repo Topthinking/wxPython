@@ -33,3 +33,14 @@ class DBModel(object):
             self.conn.close();
             
         return result
+    
+    def insertMySQL(self,sql,data):
+        try:
+            with self.conn.cursor() as cursor:
+                # 执行sql语句，进行查询
+                cursor.execute(sql,(data))
+                
+                # 没有设置默认自动提交，需要主动提交，以保存所执行的语句
+                self.conn.commit()
+        finally:
+            self.conn.close();
