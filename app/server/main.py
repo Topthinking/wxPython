@@ -54,11 +54,8 @@ class ServerController(object):
     def start(self):
         print("【"+self.bot.self.raw["NickName"]+"】登录成功")
         listen(self.bot,self.friends)
-        
-    def Bjoin(self):
-        print("【"+self.bot.self.raw["NickName"]+"】登录成功")
         self.bot.join()
-    
+        
     def replay(self):
         @self.bot.register()
         def print_others(msg):
