@@ -3,4 +3,5 @@ wxpy_puid.pkl
 friend.txt
 app/__pycache__
 app/*/__pycache__
-send_laopo.*
+autoSend
+send_*
