@@ -1,6 +1,6 @@
 #coding:utf-8
 import pymysql
-from config import config
+from app.config import config
 
 class DBModel(object):
     def __init__(self):

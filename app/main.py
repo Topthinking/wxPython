@@ -1,4 +1,4 @@
-from server.main import ServerController
+from app.server.main import ServerController
 
 if __name__ == '__main__':
     wx_server = ServerController(True)

@@ -3,7 +3,7 @@ import threading
 
 from wechat_sender import Sender
 
-from douyu import url_manager, html_downloader, html_parser
+from app.douyu import url_manager, html_downloader, html_parser
 import json
 from future.backports.misc import count
 

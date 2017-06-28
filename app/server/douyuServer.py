@@ -1,6 +1,6 @@
 #coding:utf-8
 #处理斗鱼的数据接口
-from douyu import liveDataByRoomId,liveDb
+from app.douyu import liveDataByRoomId,liveDb
 
 class DouyuServer(object):
     

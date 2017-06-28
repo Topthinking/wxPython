@@ -1,5 +1,5 @@
 #coding:utf-8
-from db import DBmain
+from app.db import DBmain
 
 
 class LiveDb(object):

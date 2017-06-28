@@ -17,12 +17,3 @@ class UrlManager(object):
     
     def add_new_url(self,url):
         self.url = url
-    
-    
-    
-    
-    
-    
-
-
-

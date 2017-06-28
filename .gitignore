@@ -1,8 +1,5 @@
-wxpuid.pkl
-wxpy.pkl
-wxpy_puid.pkl
-friend.txt
-.settings/*
-.project
-.pydevproject
-*/__pycache__
+app/wxpy.pkl
+app/wxpy_puid.pkl
+app/__pycache__
+app/*/__pycache__
+app/friend.txt

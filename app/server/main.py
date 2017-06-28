@@ -3,8 +3,8 @@ from wechat_sender.listener import listen
 from wechat_sender.sender import Sender
 from wxpy.api.bot import Bot
 
-from common import function
-from server import friends,douyuServer
+from app.common import function
+from app.server import friends,douyuServer
 
 class ServerController(object):
     

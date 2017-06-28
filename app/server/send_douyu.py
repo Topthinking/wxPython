@@ -1,9 +1,9 @@
 #coding:utf-8
 from wechat_sender.sender import Sender
 
-from server import friends
+from app.server import friends
 
-from douyu import main
+from app.douyu import main
 import threading
 import time
 
