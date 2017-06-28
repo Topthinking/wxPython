@@ -63,7 +63,7 @@ class ServerController(object):
             
         @self.bot.register(self.friends)
         def reply_my_friend(msg):
-            if msg.text == "top":
+            if msg.type == "Friends":
                 return "访问     https://github.com/Topthinking/wxPython 查看更多"
             
             #连接斗鱼数据查询

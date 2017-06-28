@@ -22,7 +22,7 @@ class DouyuServer(object):
             lists = self.douyuLiveDb.searchLiveState(self.msg.text)
             
             if len(lists) == 0 :
-                return "您的查询超过系统爬取的范围，请提交github，让系统进行爬取"
+                return "您的查询超过系统爬取的范围\n可以回复格式为\n dy:[名称]:[房间号]:[别名1,别名2,别名3]\n即可完成添加或者修改，目前针对斗鱼直播数据\n例如： dy:yyf:58428:rua,胖头鱼"
             
             searchLive = False
                 

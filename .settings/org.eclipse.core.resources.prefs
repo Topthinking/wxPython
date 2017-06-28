@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//app/config/config.py=utf-8
 encoding//app/server/douyuServer.py=utf-8
 encoding//app/server/friends.py=utf-8
 encoding//app/server/main.py=utf-8
