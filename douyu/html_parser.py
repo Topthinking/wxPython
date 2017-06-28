@@ -89,12 +89,20 @@ class HtmlParser(object):
         
         roomshowData = json.loads(content["$ROOM.showData"])
         
+        search_url = ''
+        
+        if "child_cate" not in roomshowData:
+            search_url = roomshowData["game"]["url"]
+        else:
+            search_url = roomshowData["child_cate"]["url"]
+        
+        
         return {
             "roomId":str(roomInfo['room_id']),
             "roomName":roomInfo['room_name'],
             "nickName":roomInfo['owner_name'],
             "show_status":roomInfo["show_status"],
-            "search_url":roomshowData["child_cate"]["url"]
+            "search_url":search_url
         }
         
         
