@@ -25,15 +25,11 @@ class DouyuServer(object):
                 return "您的查询超过系统爬取的范围，请提交github，让系统进行爬取"
             
             searchLive = False
-            
-            print(lists)
                 
             for list in lists:
     
                 liveData = self.liveSer.attention(list["roomId"])
-                
-                print(liveData)
-                    
+                                   
                 self.msg.chat.send(self._livereplayInfo(liveData))
                 
                 searchLive = True
