@@ -1,5 +1,5 @@
-app/wxpy.pkl
-app/wxpy_puid.pkl
+wxpy.pkl
+wxpy_puid.pkl
+friend.txt
 app/__pycache__
 app/*/__pycache__
-app/friend.txt
