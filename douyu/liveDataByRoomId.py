@@ -75,3 +75,25 @@ class LiveDataByRoomId(object):
         
         return result
     
+    
+    
+    
+    #根据roomId判定房间是否存在
+    
+    def isExistRoom(self,roomId):
+        url = "http://www.douyu.com/ztCache/WebM/room/"+str(roomId)
+            
+        html_cont = self.downloader.download(url)
+        
+        content = json.loads(html_cont)
+        
+        if content == []:
+            result = None
+        
+        roomInfo = json.loads(content["$ROOM"])
+        
+        if roomInfo['room_name'] == False:
+            return False
+        else:
+            return True
+    

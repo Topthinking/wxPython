@@ -20,11 +20,7 @@ class ServerController(object):
         
         #获取朋友列表
         self._get_friend()
-            
-    #数据库    
-    def setDBconf(self,conf):
-        self.conf = conf
-             
+   
     def _get_friend(self):
         friends = self.bot.friends()
 
@@ -74,7 +70,7 @@ class ServerController(object):
                 return "访问     https://github.com/Topthinking/wxPython 查看更多"
             
             #连接斗鱼数据查询
-            douyuSer =  douyuServer.DouyuServer(self.conf,msg)
+            douyuSer =  douyuServer.DouyuServer(msg)
             
             #根据roomID号爬取斗鱼直播情况
             return douyuSer.liveDataByRoomId()

@@ -4,10 +4,10 @@ from douyu import liveDataByRoomId,liveDb
 
 class DouyuServer(object):
     
-    def __init__(self,conf,msg): 
+    def __init__(self,msg): 
         #连接数据库
-        self.conf = conf
-        self.douyuLiveDb = liveDb.LiveDb(conf)
+        self.douyuLiveDb = liveDb.LiveDb()
+        self.liveSer = liveDataByRoomId.LiveDataByRoomId()
         self.msg = msg
     
     def liveDataByRoomId(self):
@@ -15,51 +15,78 @@ class DouyuServer(object):
         newMsg = self.msg.text.split(":")
         
         #查询
-        if len(newMsg) == 0 or newMsg[0] != "提交斗鱼":  
+        if len(newMsg) == 0 or newMsg[0] != "dy":  
             
             self.msg.chat.send('已接收数据，正在请求中...')
-            
-            result = ''
-            
-            liveSer = liveDataByRoomId.LiveDataByRoomId()
-            
+        
             lists = self.douyuLiveDb.searchLiveState(self.msg.text)
             
             if len(lists) == 0 :
                 return "您的查询超过系统爬取的范围，请提交github，让系统进行爬取"
             
+            searchLive = False
+            
+            print(lists)
                 
             for list in lists:
     
-                liveData = liveSer.attention(list["roomId"])
+                liveData = self.liveSer.attention(list["roomId"])
+                
+                print(liveData)
                     
                 self.msg.chat.send(self._livereplayInfo(liveData))
                 
-            return "数据发送完毕！"   
+                searchLive = True
+             
+            if searchLive == True:   
+                return "数据发送完毕！"   
         #插入
-        elif len(newMsg) !=0 and newMsg[0] == "提交斗鱼":
+        elif len(newMsg) !=0 and newMsg[0] == "dy":
             
             self.msg.chat.send('已接收数据，正在添加数据...')
             
             #name,roomId,alias
+            #dy:top:12345:a,b,v,d
             #newMsg[1],newMsg[2],newMsg[3]
+            
+            #先判断房间号在斗鱼是否存在
+            if self.liveSer.isExistRoom(newMsg[2]) == False:
+                return "房间号:【"+newMsg[2]+"】在斗鱼不存在，无法添加"
             
             data = self.douyuLiveDb.isExistLive(newMsg[2])
             
             if data is None:
+                
+                #添加数据
                 param = (newMsg[1],newMsg[2],newMsg[3])
-            
-                douyuLiveDb = liveDb.LiveDb(self.conf)
-                douyuLiveDb.addLiveState(param)
+
+                self.douyuLiveDb.addLiveState(param)
             
                 return "数据添加成功"
             
             else:
-                return "房间已存在，无法更新"
+                
+                #更新数据
+                alias = data["alias"].split(",")
+                
+                newAlias = newMsg[3].split(",")
+                
+                for newAlia in newAlias:
+                    if newAlia not in alias:
+                        alias.append(newAlia)
+                
+                alias = ",".join(alias)
+                
+                #更新房间信息
+                param = (newMsg[1],alias)
+                
+                self.douyuLiveDb.updateLiveInfo(param, newMsg[2])
+                
+                return "房间号:【"+newMsg[2]+"】数据更新成功！"
         
     
     def _livereplayInfo(self,liveData):
-        
+            
         #正在直播
         if liveData['show_status'] == 1:
             info = "房间名称:【"+liveData['roomName']+"】已开播"\
