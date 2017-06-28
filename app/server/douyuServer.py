@@ -18,8 +18,10 @@ class DouyuServer(object):
         if len(newMsg) == 0 or newMsg[0] != "dy":  
             
             self.msg.chat.send('已接收数据，正在请求中...')
+            
+            param = ("%"+self.msg.text+"%",)
         
-            lists = self.douyuLiveDb.searchLiveState(self.msg.text)
+            lists = self.douyuLiveDb.searchLiveState(param)
             
             if len(lists) == 0 :
                 return "您的查询超过系统爬取的范围\n可以回复格式为\n dy:[名称]:[房间号]:[别名1,别名2,别名3]\n即可完成添加或者修改，目前针对斗鱼直播数据\n例如： dy:yyf:58428:rua,胖头鱼"
@@ -52,7 +54,9 @@ class DouyuServer(object):
             if self.liveSer.isExistRoom(newMsg[2]) == False:
                 return "房间号:【"+newMsg[2]+"】在斗鱼不存在，无法添加"
             
-            data = self.douyuLiveDb.isExistLive(newMsg[2])
+            param = (newMsg[2],)
+            
+            data = self.douyuLiveDb.isExistLive(param)
             
             if data is None:
                 
@@ -77,9 +81,9 @@ class DouyuServer(object):
                 alias = ",".join(alias)
                 
                 #更新房间信息
-                param = (newMsg[1],alias)
+                param = (newMsg[1],alias,newMsg[2])
                 
-                self.douyuLiveDb.updateLiveInfo(param, newMsg[2])
+                self.douyuLiveDb.updateLiveInfo(param)
                 
                 return "房间号:【"+newMsg[2]+"】数据更新成功！"
         

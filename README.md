@@ -29,6 +29,8 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4 +pymysql
 例如回复: dy:yyf:58428:rua , 
 结果就是更新rua别名，那么就可以回复rua获取房间号58428的直播情况
 可以回复多个别名，他们以英文的逗号隔开，比如 dy:yyf:58428:rua,胖头鱼
+3.优化sql语句对数据库的直接操作，防止sql注入
+4.同时处理了输入格式错误返回的信息
 ```
 ## 说明
 
