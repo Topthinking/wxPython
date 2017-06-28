@@ -28,13 +28,19 @@ class FriendManager(object):
         myFriend = []
         
         for friend in friends:
-            if friend['nick_name'] != nickname:
-                continue
-            else:
+            if nickname == True:
                 myFriend.append({
                     "user_name":friend["user_name"],
                     "nick_name":friend["nick_name"]
                     })
+            else:
+                if friend['nick_name'] != nickname:
+                    continue
+                else:
+                    myFriend.append({
+                        "user_name":friend["user_name"],
+                        "nick_name":friend["nick_name"]
+                        })
      
         return myFriend
     

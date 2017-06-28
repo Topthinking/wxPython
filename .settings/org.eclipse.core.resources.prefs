@@ -2,4 +2,4 @@ eclipse.preferences.version=1
 encoding//app/server/douyuServer.py=utf-8
 encoding//app/server/friends.py=utf-8
 encoding//app/server/main.py=utf-8
-encoding//app/server/send_douyu.py=utf-8
+encoding//app/server/send_update_notify.py=utf-8
