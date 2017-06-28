@@ -1,6 +1,7 @@
 #coding:utf-8
 from wechat_sender.sender import Sender
 from app.server import friends
+import time
 
 class VerUpdateSend(object):
     def __init__(self,nick_name):
@@ -13,6 +14,9 @@ class VerUpdateSend(object):
     def sendMsg(self,info):
         
         for friend in self.friends:
-            self.sender.send_to(info, search={'nick_name':friend['nick_name'],'user_name':friend['user_name']})
+            if friend['nick_name'] != 'AAA.top.bot':
+                self.sender.send_to(info, search={'nick_name':friend['nick_name'],'user_name':friend['user_name']})
+            
 
-    
+        
+        
