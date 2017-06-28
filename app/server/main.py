@@ -62,10 +62,9 @@ class ServerController(object):
             print(msg)
             
         @self.bot.register(self.friends)
-        def reply_my_friend(msg):
-            if msg.type == "Friends":
-                return "访问     https://github.com/Topthinking/wxPython 查看更多"
-            
+        def reply_my_friend(msg):           
+            if msg.type != "Text":
+                return "暂时支持文本格式的"
             #连接斗鱼数据查询
             douyuSer =  douyuServer.DouyuServer(msg)
             
@@ -78,7 +77,7 @@ class ServerController(object):
                 new_friend = msg.card.accept()
                 #更新朋友列表
                 self._get_friend()                
-                new_friend.send('您好，已经接受好友请求了')
+                new_friend.send('您好，已经接受好友请求了\n访问     https://github.com/Topthinking/wxPython 查看更多')
             
                   
         

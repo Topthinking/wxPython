@@ -7,6 +7,7 @@ from wechat_sender import Sender
 from app.douyu import url_manager, html_downloader, html_parser
 import json
 from future.backports.misc import count
+from future.types.newbytes import unicode
 
 
 class LiveDataByRoomId(object):
@@ -85,10 +86,13 @@ class LiveDataByRoomId(object):
             
         html_cont = self.downloader.download(url)
         
+        if unicode(html_cont, "utf-8") == '':
+            return False
+        
         content = json.loads(html_cont)
         
         if content == []:
-            result = None
+            result = False
         
         roomInfo = json.loads(content["$ROOM"])
         

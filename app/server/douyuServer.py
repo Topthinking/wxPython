@@ -39,6 +39,9 @@ class DouyuServer(object):
         #插入
         elif len(newMsg) !=0 and newMsg[0] == "dy":
             
+            if len(newMsg) != 4:
+                return "错误格式的数据"
+            
             self.msg.chat.send('已接收数据，正在添加数据...')
             
             #name,roomId,alias
