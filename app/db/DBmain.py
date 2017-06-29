@@ -70,4 +70,19 @@ class DBModel(object):
                 self.conn.commit()
         finally:
             self.conn.close();
-            
+    
+    def insertMySQLById(self,sql,data):
+        self._connect()
+        result=''
+        try:
+            with self.conn.cursor() as cursor:
+                # 执行sql语句，进行查询
+                cursor.execute(sql,(data))
+                sql = " SELECT LAST_INSERT_ID() as id ";
+                cursor.execute(sql)
+                result = cursor.fetchone()
+                # 没有设置默认自动提交，需要主动提交，以保存所执行的语句
+                self.conn.commit()
+        finally:
+            self.conn.close(); 
+        return result

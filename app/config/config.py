@@ -5,10 +5,10 @@ class Config(object):
     
     def database(self):
         return {
-           "host":"127.0.0.1",
-           "port":3306,
-           "user":"root",
-           "passwd":"root",
+           "host":"116.62.120.178",
+        "port":3306,
+        "user":"topthinking",
+        "passwd":"!woSHIsyj@",
             "db":"spider",
             "charset":"utf8",
             "cursorclass":pymysql.cursors.DictCursor
