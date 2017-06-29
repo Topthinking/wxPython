@@ -20,9 +20,9 @@ class TextMsg(object):
         
         print(data)
         
-        
         #连接斗鱼数据查询
         douyuSer =  douyuServer.DouyuServer(msg)
         
         #根据roomID号爬取斗鱼直播情况
         return douyuSer.liveDataByRoomId()
+    

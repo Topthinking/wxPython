@@ -8,7 +8,6 @@ import time
 from app.common import function
 from app.server import userDb,TextMsgHandle
 
-
 class ServerController(object):
     
     def __init__(self,init=False):
@@ -42,29 +41,13 @@ class ServerController(object):
             
             for tmpFriend in tmpFriends:
                 
-                #打印所有对象集合
-                #self.common.prn_obj(tmpFriend)
+                #机器人自己不加入
+                if tmpFriend.raw["UserName"] == self.bot.self.raw["UserName"]:
+                    continue
                 
-                """
-                                        添加用户
-                nick_name,user_name,puid,add_time
-                                        更新用户
-                nick_name,user_name,puid,update_time,id
-                """
-                curTime = int(time.mktime(datetime.datetime.now().timetuple()))
-                remarkName = tmpFriend.raw["RemarkName"]
-                
-                if tmpFriend.raw["RemarkName"] == '':
-                    #添加新的用户                    
-                    param = (tmpFriend.raw["NickName"],tmpFriend.raw["UserName"],tmpFriend.puid,curTime)
-                    remarkName = self.userdbSer.insertUserGetInertId(param)
-                    self.bot.core.set_alias(userName=tmpFriend.raw["UserName"], alias=remarkName)                   
-                else:
-                    #更新用户
-                    param = (tmpFriend.raw["NickName"],tmpFriend.raw["UserName"],tmpFriend.puid,curTime,tmpFriend.raw["RemarkName"])
-                    self.userdbSer.updateUserInfo(param)
-
-                self.friends.append(tmpFriend)
+                #刷新当前数据库好友信息
+                self._actionUserInfo(tmpFriend)
+  
         
     def start(self):
         print("【"+self.bot.self.raw["NickName"]+"】登录成功")
@@ -93,18 +76,32 @@ class ServerController(object):
         @self.bot.register(msg_types="Friends")
         def auto_accept_friends(msg):
             if "top" in msg.text.lower():
-                new_friend = msg.card.accept()
+                new_friend = msg.card.accept()      
                 
-                #添加新的朋友到数据库     
-                curTime = int(time.mktime(datetime.datetime.now().timetuple()))
-                param = (new_friend.raw["NickName"],new_friend.raw["UserName"],new_friend.puid,curTime)
-                remarkName = self.userdbSer.insertUserGetInertId(param)
-                self.bot.core.set_alias(userName=new_friend.raw["UserName"], alias=remarkName)
-                
-                self.friends.append(new_friend)
+                #对添加的用户进行保存              
+                self._actionUserInfo(new_friend)
                   
                 new_friend.send('您好，已经接受好友请求了\n访问     https://github.com/Topthinking/wxPython 查看更多')
             
-                  
+    def _actionUserInfo(self,friend):
+        """
+                            添加用户
+        nick_name,user_name,puid,add_time
+                            更新用户
+        nick_name,user_name,puid,update_time,id
+        """
+        curTime = int(time.mktime(datetime.datetime.now().timetuple()))
+        #判定该添加的朋友之前是否存在备注                
+        if friend.raw["RemarkName"] == '':
+            #添加新的朋友到数据库                         
+            param = (friend.raw["NickName"],friend.raw["UserName"],friend.puid,curTime)
+            remarkName = self.userdbSer.insertUserGetInertId(param)
+            self.bot.core.set_alias(userName=friend.raw["UserName"], alias=remarkName)
+        else:
+            #更新
+            param = (friend.raw["NickName"],friend.raw["UserName"],friend.puid,curTime,friend.raw["RemarkName"])
+            self.userdbSer.updateUserInfo(param)
+        
+        self.friends.append(friend)
         
             
