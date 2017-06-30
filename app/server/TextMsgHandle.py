@@ -30,12 +30,13 @@ class TextMsg(object):
             #判定是否是请求订阅，格式：订阅:[斗鱼直播]
             sub = msg.text.split(":")
             
-            if sub[0] == "订阅":
-                #订阅功能
-                self._addSub(sub, userId, msg)     
-            elif sub[0] == "取消订阅":
-                #取消订阅功能         
-                self._cancelSub(sub, userId, msg)     
+            if len(sub) == 2:            
+                if sub[0] == "订阅":
+                    #订阅功能
+                    self._addSub(sub, userId, msg)     
+                elif sub[0] == "取消订阅":
+                    #取消订阅功能         
+                    self._cancelSub(sub, userId, msg)     
             else:
                 #信息请求        
                 #获取订阅信息
@@ -129,8 +130,8 @@ class TextMsg(object):
             info = info+str(count)+"、订阅号："+str(sub["id"])+"；订阅名："+str(sub["name"])+"\n"
             count = count + 1
             
-        info = info + "\n您可以回复: 订阅:[订阅号,订阅名] 例如: 订阅:"+str(subs[0]["name"])
-        info = info + "\n把订阅改为取消订阅，其余不变，即可完成取消 "
+        info = info + "\n您可以回复: 订阅:[订阅号,订阅名] \n[玫瑰]例如: 订阅:"+str(subs[0]["name"])
+        info = info + "\n[嘘]把订阅改为取消订阅，其余不变，即可完成取消 "
         info = info + "\n回复：我的订阅  即可查询当前订阅内容\n[爱心]谢谢使用[爱心]"
         return info
         
