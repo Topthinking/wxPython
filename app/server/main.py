@@ -70,7 +70,7 @@ class ServerController(object):
             
             #发送的文本信息
             if msg.type == "Text":
-                return self.textMsg.start(msg)
+                self.textMsg.start(msg)
             
                 
         @self.bot.register(msg_types="Friends")

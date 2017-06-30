@@ -14,17 +14,19 @@ class DouyuServer(object):
            
         newMsg = self.msg.text.split(":")
         
+        sendMsg = self.msg.chat
+        
         #查询
         if len(newMsg) == 0 or newMsg[0] != "dy":  
             
-            self.msg.chat.send('已接收数据，正在请求中...')
+            sendMsg.send('已接收数据，正在请求中...')
             
             param = ("%"+self.msg.text+"%",)
         
             lists = self.douyuLiveDb.searchLiveState(param)
             
             if len(lists) == 0 :
-                return "您的查询超过系统爬取的范围\n可以回复格式为\n dy:[名称]:[房间号]:[别名1,别名2,别名3]\n即可完成添加或者修改，目前针对斗鱼直播数据\n例如： dy:yyf:58428:rua,胖头鱼"
+                sendMsg.send("您的查询超过系统爬取的范围\n可以回复格式为\n dy:[名称]:[房间号]:[别名1,别名2,别名3]\n即可完成添加或者修改，目前针对斗鱼直播数据\n例如： dy:yyf:58428:rua,胖头鱼")
             
             searchLive = False
                 
@@ -37,14 +39,14 @@ class DouyuServer(object):
                 searchLive = True
              
             if searchLive == True:   
-                return "数据发送完毕！"   
+                sendMsg.send("数据发送完毕！")   
         #插入
         elif len(newMsg) !=0 and newMsg[0] == "dy":
             
             if len(newMsg) != 4:
-                return "错误格式的数据"
+                sendMsg.send("错误格式的数据")
             
-            self.msg.chat.send('已接收数据，正在添加数据...')
+            sendMsg.send('已接收数据，正在添加数据...')
             
             #name,roomId,alias
             #dy:top:12345:a,b,v,d
@@ -52,7 +54,7 @@ class DouyuServer(object):
             
             #先判断房间号在斗鱼是否存在
             if self.liveSer.isExistRoom(newMsg[2]) == False:
-                return "房间号:【"+newMsg[2]+"】在斗鱼不存在，无法添加"
+                sendMsg.send("房间号:【"+newMsg[2]+"】在斗鱼不存在，无法添加")
             
             param = (newMsg[2],)
             
@@ -65,7 +67,7 @@ class DouyuServer(object):
 
                 self.douyuLiveDb.addLiveState(param)
             
-                return "数据添加成功"
+                sendMsg.send("数据添加成功")
             
             else:
                 
@@ -85,7 +87,7 @@ class DouyuServer(object):
                 
                 self.douyuLiveDb.updateLiveInfo(param)
                 
-                return "房间号:【"+newMsg[2]+"】数据更新成功！"
+                sendMsg.send("房间号:【"+newMsg[2]+"】数据更新成功！")
         
     
     def _livereplayInfo(self,liveData):
