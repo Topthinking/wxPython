@@ -48,7 +48,8 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4 +pymysql
 ![](https://github.com/Topthinking/wxPython/blob/master/doc/top.jpg)
 
 # 效果截图
-<img src="https://github.com/Topthinking/wxPython/blob/master/doc/show.png" width="760" height="350"/> 
+<img src="https://github.com/Topthinking/wxPython/blob/master/doc/show.png" width="760" height="350"/>
+<img src="https://github.com/Topthinking/wxPython/blob/master/doc/sub.png" width="760" height="950"/>  
 
 # 词汇截图
 <img src="https://github.com/Topthinking/wxPython/blob/master/doc/word.png" width="760" height="350"/>
