@@ -10,4 +10,5 @@ encoding//app/server/TextMsgHandle.py=utf-8
 encoding//app/server/douyuServer.py=utf-8
 encoding//app/server/main.py=utf-8
 encoding//app/server/send_update_notify.py=utf-8
+encoding//app/server/subscribe.py=utf-8
 encoding//app/server/userDb.py=utf-8

@@ -19,8 +19,6 @@ class DouyuServer(object):
         #查询
         if len(newMsg) == 0 or newMsg[0] != "dy":  
             
-            sendMsg.send('已接收数据，正在请求中...')
-            
             param = ("%"+self.msg.text+"%",)
         
             lists = self.douyuLiveDb.searchLiveState(param)
@@ -45,8 +43,6 @@ class DouyuServer(object):
             
             if len(newMsg) != 4:
                 sendMsg.send("错误格式的数据")
-            
-            sendMsg.send('已接收数据，正在添加数据...')
             
             #name,roomId,alias
             #dy:top:12345:a,b,v,d

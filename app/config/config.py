@@ -9,7 +9,7 @@ class Config(object):
            "port":3306,
            "user":"root",
            "passwd":"root",
-            "db":"spider",
-            "charset":"utf8",
-            "cursorclass":pymysql.cursors.DictCursor
+           "db":"spider",
+           "charset":"utf8",
+           "cursorclass":pymysql.cursors.DictCursor
         }
