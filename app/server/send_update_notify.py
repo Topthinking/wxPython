@@ -15,7 +15,7 @@ class VerUpdateSend(object):
             if self.nick_name != True and friend['nick_name'] == self.nick_name:
                 self.sender.send_to(info, search={'nick_name':friend['nick_name'],'user_name':friend['user_name']})
                 break
-            else:
+            elif self.nick_name == True:
                 self.sender.send_to(info, search={'nick_name':friend['nick_name'],'user_name':friend['user_name']})
 
         
