@@ -99,8 +99,18 @@ class ServerController(object):
             self.bot.core.set_alias(userName=friend.raw["UserName"], alias=remarkName)
         else:
             #更新
-            param = (friend.raw["NickName"],friend.raw["UserName"],friend.puid,curTime,friend.raw["RemarkName"])
-            self.userdbSer.updateUserInfo(param)
+            #1.先查询是否存在该用户 存在就更新 否则就添加
+            param = (friend.raw["RemarkName"],)
+            info = self.userdbSer.isExistUser(param)
+            
+            if info is None:
+                #添加新的朋友到数据库                         
+                param = (friend.raw["NickName"],friend.raw["UserName"],friend.puid,curTime)
+                remarkName = self.userdbSer.insertUserGetInertId(param)
+                self.bot.core.set_alias(userName=friend.raw["UserName"], alias=remarkName)
+            else:
+                param = (friend.raw["NickName"],friend.raw["UserName"],friend.puid,curTime,friend.raw["RemarkName"])
+                self.userdbSer.updateUserInfo(param)
         
         self.friends.append(friend)
         
