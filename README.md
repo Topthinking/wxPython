@@ -46,6 +46,7 @@ python3.6 + pip3 + wxpy + wechat_sender + urllib + bs4 +pymysql
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
 ### 扫描二维码，验证信息输入'top'
+#### 工作时间可用(10:00 - 19:00)
 ![](https://github.com/Topthinking/wxPython/blob/master/doc/top.jpg)
 
 # 效果截图

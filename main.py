@@ -1,3 +1,6 @@
+'''
+主入口文件
+'''
 from app.server.main import ServerController
 
 if __name__ == '__main__':
