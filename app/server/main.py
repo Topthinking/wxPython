@@ -1,6 +1,6 @@
-'''
+"""
 初始化机器人，以及响应好友消息请求
-'''
+"""
 # coding:utf-8
 import datetime
 import time
